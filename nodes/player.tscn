@@ -3,9 +3,6 @@
 [ext_resource type="Script" path="res://nodes/player.gd" id="1_i1qlg"]
 [ext_resource type="Texture2D" uid="uid://dlr0i2p07aprs" path="res://img/sprites/PixelFarm_Farmer-Sheet.png" id="1_uh556"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1osy"]
-size = Vector2(14, 10)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_fmc1v"]
 atlas = ExtResource("1_uh556")
 region = Rect2(0, 0, 32, 32)
@@ -95,14 +92,18 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1osy"]
+size = Vector2(14, 10)
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_i1qlg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 1
+sprite_frames = SubResource("SpriteFrames_lpskl")
+animation = &"Idle"
+frame_progress = 0.58693
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 11)
 shape = SubResource("RectangleShape2D_p1osy")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_lpskl")
-animation = &"Idle"
-frame_progress = 0.58693

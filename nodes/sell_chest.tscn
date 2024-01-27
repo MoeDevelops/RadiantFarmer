@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://bkgvqc682n76t"]
+
+[ext_resource type="Texture2D" uid="uid://c58t85olae3w3" path="res://img/sprites/PixelFarm_Chest-Sheet.png" id="1_dex5k"]
+[ext_resource type="Script" path="res://nodes/sell_chest.gd" id="2_70kp8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rcwx0"]
+atlas = ExtResource("1_dex5k")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sr2m5"]
+atlas = ExtResource("1_dex5k")
+region = Rect2(32, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1vdeu"]
+atlas = ExtResource("1_dex5k")
+region = Rect2(64, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bslf1"]
+atlas = ExtResource("1_dex5k")
+region = Rect2(96, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dquml"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rcwx0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sr2m5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1vdeu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bslf1")
+}],
+"loop": false,
+"name": &"Open",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8nuqp"]
+radius = 20.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_alxu2"]
+size = Vector2(26, 18)
+
+[node name="SellChest" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_dquml")
+animation = &"Open"
+script = ExtResource("2_70kp8")
+
+[node name="SellChestArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SellChestArea"]
+shape = SubResource("CircleShape2D_8nuqp")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_alxu2")
+
+[connection signal="body_entered" from="SellChestArea" to="." method="_on_sell_chest_area_body_entered"]
+[connection signal="body_exited" from="SellChestArea" to="." method="_on_sell_chest_area_body_exited"]

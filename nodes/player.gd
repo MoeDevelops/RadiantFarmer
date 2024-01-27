@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 @export var max_speed: float = 120
 @export var acceleration: float = 10
@@ -15,7 +16,9 @@ func _physics_process(_delta):
 		sprite.play("Idle")
 	else:
 		sprite.play("Walk")	
-		sprite.flip_h = velocity.x < 0
+		
+		if velocity.x != 0:
+			sprite.flip_h = velocity.x < 0
 			
 
 	move_and_slide()
