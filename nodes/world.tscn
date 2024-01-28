@@ -507,6 +507,8 @@ animations = [{
 
 [node name="Player" parent="." instance=ExtResource("2_7ksaw")]
 position = Vector2(183, 74)
+max_speed = 120.0
+acceleration = 10.0
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_bbf2j")

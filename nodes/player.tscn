@@ -1,59 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://qmx3lck4jybo"]
 
+[ext_resource type="Script" path="res://nodes/player.gd" id="1_kfegg"]
 [ext_resource type="Texture2D" uid="uid://dlr0i2p07aprs" path="res://img/sprites/PixelFarm_Farmer-Sheet.png" id="1_uh556"]
-
-[sub_resource type="GDScript" id="GDScript_a8in0"]
-script/source = "extends CharacterBody2D
-class_name Player
-
-@export var max_speed: float = 120
-@export var acceleration: float = 10
-
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var marker: Marker2D = $Marker2D
-@onready var timer: Timer = $Timer
-
-var item = null
-
-signal interact
-
-func _process(_delta):
-	if Input.is_action_just_pressed(\"interact\"):
-		var local_item = item
-		print_debug(local_item)
-		interact.emit(local_item)
-		print_debug(local_item)
-
-func _physics_process(_delta):
-	var direction: Vector2 = Input.get_vector(\"left\", \"right\", \"up\", \"down\")
-	
-	velocity.x = move_toward(velocity.x, max_speed * direction.x, acceleration)
-	velocity.y = move_toward(velocity.y, max_speed * direction.y, acceleration)
-	
-	if velocity.x == 0 and velocity.y == 0:
-		sprite.play(\"Idle\")
-	else:
-		sprite.play(\"Walk\")	
-		
-		if velocity.x != 0:
-			flip(velocity.x < 0)
-			
-	move_and_slide()
-
-func flip(left: bool):
-	sprite.flip_h = left
-	
-	if left:
-		var marker_pos: Vector2 = marker.position
-		
-		if marker_pos.x > 0:
-			marker.position = Vector2(marker_pos.x * -1, marker_pos.y)
-	else:
-		var marker_pos: Vector2 = marker.position
-		
-		if marker_pos.x < 0:
-			marker.position = Vector2(marker_pos.x * -1, marker_pos.y)
-"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fmc1v"]
 atlas = ExtResource("1_uh556")
@@ -148,9 +96,7 @@ animations = [{
 size = Vector2(14, 10)
 
 [node name="Player" type="CharacterBody2D"]
-script = SubResource("GDScript_a8in0")
-max_speed = null
-acceleration = null
+script = ExtResource("1_kfegg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 1
@@ -164,5 +110,3 @@ shape = SubResource("RectangleShape2D_p1osy")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(5, 10)
-
-[node name="Timer" type="Timer" parent="."]
