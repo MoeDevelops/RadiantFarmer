@@ -6,7 +6,6 @@ class_name Player
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var marker: Marker2D = $Marker2D
-@onready var timer: Timer = $Timer
 
 var item = null
 

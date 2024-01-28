@@ -4,6 +4,7 @@ class_name Carrot
 var plantable: bool = true
 var holdable: bool = true
 var harvestable: bool = false
+var states: int = 4
 
 var value: int = 5
 var player: Player = null
@@ -18,6 +19,20 @@ func _on_area_2d_body_exited(body):
 	if body is Player:
 		player.interact.disconnect(interact)
 		player = null
+
+func grow():
+	if frame != states:
+		frame += 1
+		
+		if frame == states:
+			harvestable = true
+
+func harvest():
+	frame = states + 1
+	plantable = false
+	holdable = true
+	picked_up = true
+	value = 20
 
 func interact(item):
 	if holdable:

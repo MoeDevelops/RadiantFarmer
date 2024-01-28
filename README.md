@@ -2,5 +2,8 @@
  
 ## Credits
 
-World Sprites by https://itch.io/profile/hellorumin
+### Sprites
+
+World Sprites https://itch.io/profile/hellorumin
 Coins Sprite https://laredgames.itch.io/gems-coins-free
+Crop Sprites by me

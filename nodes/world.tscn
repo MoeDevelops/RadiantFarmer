@@ -1,5 +1,6 @@
-[gd_scene load_steps=28 format=3 uid="uid://ukpcy468bti7"]
+[gd_scene load_steps=29 format=3 uid="uid://ukpcy468bti7"]
 
+[ext_resource type="Script" path="res://nodes/world.gd" id="1_1jppq"]
 [ext_resource type="Texture2D" uid="uid://deof5io0ciioo" path="res://img/sprites/PixelFarm_Tileset.png" id="1_bxwh1"]
 [ext_resource type="PackedScene" uid="uid://qmx3lck4jybo" path="res://nodes/player.tscn" id="2_7ksaw"]
 [ext_resource type="Texture2D" uid="uid://btkfbyiy6asus" path="res://img/sprites/neko-office-furniture.png" id="2_gui0a"]
@@ -504,11 +505,11 @@ animations = [{
 }]
 
 [node name="World" type="Node2D"]
+script = ExtResource("1_1jppq")
 
 [node name="Player" parent="." instance=ExtResource("2_7ksaw")]
+z_index = 1
 position = Vector2(183, 74)
-max_speed = 120.0
-acceleration = 10.0
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_bbf2j")
@@ -589,7 +590,7 @@ text = "Sleep"
 
 [node name="Coin" type="Node" parent="."]
 
-[node name="CoinLabel" type="Label" parent="Coin" node_paths=PackedStringArray("sprite")]
+[node name="CoinLabel" type="Label" parent="Coin" node_paths=PackedStringArray("sprite", "world")]
 offset_left = 15.0
 offset_top = -4.0
 offset_right = 55.0
@@ -598,6 +599,7 @@ text = "50
 "
 script = ExtResource("7_tidr7")
 sprite = NodePath("../CoinSprite")
+world = NodePath("../..")
 
 [node name="CoinSprite" type="AnimatedSprite2D" parent="Coin"]
 position = Vector2(8, 8)
@@ -607,29 +609,37 @@ frame_progress = 1.0
 
 [node name="Soil" type="Node" parent="."]
 
-[node name="Soil1" parent="Soil" instance=ExtResource("8_g1s5q")]
+[node name="Soil1" parent="Soil" node_paths=PackedStringArray("world") instance=ExtResource("8_g1s5q")]
 position = Vector2(56, 56)
+world = NodePath("../..")
 
-[node name="Soil2" parent="Soil" instance=ExtResource("8_g1s5q")]
+[node name="Soil2" parent="Soil" node_paths=PackedStringArray("world") instance=ExtResource("8_g1s5q")]
 position = Vector2(72, 56)
+world = NodePath("../..")
 
-[node name="Soil3" parent="Soil" instance=ExtResource("8_g1s5q")]
+[node name="Soil3" parent="Soil" node_paths=PackedStringArray("world") instance=ExtResource("8_g1s5q")]
 position = Vector2(120, 56)
+world = NodePath("../..")
 
-[node name="Soil4" parent="Soil" instance=ExtResource("8_g1s5q")]
+[node name="Soil4" parent="Soil" node_paths=PackedStringArray("world") instance=ExtResource("8_g1s5q")]
 position = Vector2(136, 56)
+world = NodePath("../..")
 
-[node name="Soil5" parent="Soil" instance=ExtResource("8_g1s5q")]
+[node name="Soil5" parent="Soil" node_paths=PackedStringArray("world") instance=ExtResource("8_g1s5q")]
 position = Vector2(56, 120)
+world = NodePath("../..")
 
-[node name="Soil6" parent="Soil" instance=ExtResource("8_g1s5q")]
+[node name="Soil6" parent="Soil" node_paths=PackedStringArray("world") instance=ExtResource("8_g1s5q")]
 position = Vector2(72, 120)
+world = NodePath("../..")
 
-[node name="Soil7" parent="Soil" instance=ExtResource("8_g1s5q")]
+[node name="Soil7" parent="Soil" node_paths=PackedStringArray("world") instance=ExtResource("8_g1s5q")]
 position = Vector2(120, 120)
+world = NodePath("../..")
 
-[node name="Soil8" parent="Soil" instance=ExtResource("8_g1s5q")]
+[node name="Soil8" parent="Soil" node_paths=PackedStringArray("world") instance=ExtResource("8_g1s5q")]
 position = Vector2(136, 120)
+world = NodePath("../..")
 
 [node name="Uranium" parent="." instance=ExtResource("9_ly2hf")]
 position = Vector2(264, 136)
@@ -644,3 +654,4 @@ position = Vector2(248, 136)
 
 [connection signal="body_entered" from="House/PCMenu/PCArea" to="House/PCMenu" method="_on_pc_area_body_entered"]
 [connection signal="body_exited" from="House/PCMenu/PCArea" to="House/PCMenu" method="_on_pc_area_body_exited"]
+[connection signal="pressed" from="House/PCMenu/SleepButton" to="." method="_on_sleep_button_pressed"]

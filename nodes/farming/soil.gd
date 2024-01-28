@@ -6,6 +6,7 @@ var plant: AnimatedSprite2D = null
 var has_uranium: bool = false
 @onready var uranium_light: PointLight2D = $UraniumLight
 @onready var marker: Marker2D = $Marker2D
+@export var world: World = null
 
 var player: Player = null
 
@@ -21,6 +22,10 @@ func _on_area_2d_body_exited(body):
 
 func interact(item):
 	if item == null:
+		if plant != null and plant.harvestable:
+			world.new_day.disconnect(plant.grow)
+			plant.harvest()
+			plant = null
 		return
 	
 	if item is Uranium:
@@ -35,6 +40,7 @@ func interact(item):
 		item.holdable = false
 		plant = item
 		plant.frame = 1
+		world.new_day.connect(plant.grow)
 		
 
 func set_has_uranium(b: bool):
