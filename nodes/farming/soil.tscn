@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://cvrbke37k2c03"]
+
+[ext_resource type="Texture2D" uid="uid://deof5io0ciioo" path="res://img/sprites/PixelFarm_Tileset.png" id="1_wjrhk"]
+[ext_resource type="Script" path="res://nodes/farming/soil.gd" id="2_loagt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_786bb"]
+atlas = ExtResource("1_wjrhk")
+region = Rect2(144, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygwe6"]
+atlas = ExtResource("1_wjrhk")
+region = Rect2(160, 64, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kx5ri"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_786bb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ygwe6")
+}],
+"loop": false,
+"name": &"default",
+"speed": 60.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n8n4m"]
+size = Vector2(2, 2)
+
+[sub_resource type="Gradient" id="Gradient_p2448"]
+offsets = PackedFloat32Array(0, 0.456186, 0.706186)
+colors = PackedColorArray(1, 1, 1, 1, 0.368557, 0.368557, 0.368557, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pgkir"]
+gradient = SubResource("Gradient_p2448")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Soil" type="AnimatedSprite2D"]
+z_index = -1
+sprite_frames = SubResource("SpriteFrames_kx5ri")
+script = ExtResource("2_loagt")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(1.0072, 0.982772)
+shape = SubResource("RectangleShape2D_n8n4m")
+
+[node name="UraniumLight" type="PointLight2D" parent="."]
+enabled = false
+color = Color(0, 1, 0, 1)
+energy = 0.2
+texture = SubResource("GradientTexture2D_pgkir")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
