@@ -16,7 +16,6 @@ func _process(_delta):
 		var local_item = item
 		print_debug(local_item)
 		interact.emit(local_item)
-		print_debug(local_item)
 
 func _physics_process(_delta):
 	var direction: Vector2 = Input.get_vector("left", "right", "up", "down")

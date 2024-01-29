@@ -11,6 +11,7 @@ var has_uranium: bool = false
 var player: Player = null
 
 func _ready():
+	add_to_group("soil")
 	world.new_day.connect(_on_new_day)
 
 func _on_new_day():
@@ -22,13 +23,16 @@ func _on_new_day():
 		set_has_uranium(false)
 	elif plant.crossbreedable != null:
 		var distance_offset: int = 16
-		var soils = get_tree().get_nodes_in_group("Soil")
+		var soils = get_tree().get_nodes_in_group("soil")
 		
 		for soil: Soil in soils:
+			if soil.plant == null:
+				continue
+			
 			var distance: int = int(soil.global_position.x - global_position.x)
 			
 			if distance == distance_offset or distance == -distance_offset:
-				plant.crossbreed(soil.plant.get_class())
+				plant.crossbreed(soil.plant.name)
 
 func _on_area_2d_body_entered(body):
 	if body is Player:
@@ -47,14 +51,13 @@ func interact(item):
 			plant.harvest()
 			plant = null
 		return
-	
-	if item is Uranium:
+	elif item is Uranium:
 		if !has_uranium:
 			item.queue_free()
 			set_has_uranium(true)
 		else:
 			item.interact(null)
-	elif "plantable" in item and item.plantable == true:
+	elif plant == null and "plantable" in item and item.plantable == true:
 		item.global_position = marker.global_position
 		item.holdable = false
 		plant = item

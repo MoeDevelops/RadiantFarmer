@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://ukpcy468bti7"]
+[gd_scene load_steps=33 format=3 uid="uid://ukpcy468bti7"]
 
 [ext_resource type="Script" path="res://nodes/world.gd" id="1_1jppq"]
 [ext_resource type="Texture2D" uid="uid://deof5io0ciioo" path="res://img/sprites/PixelFarm_Tileset.png" id="1_bxwh1"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://d2c52t2lwofsw" path="res://nodes/game_over.tscn" id="12_qhah6"]
 [ext_resource type="PackedScene" uid="uid://csny7cexmqbjj" path="res://nodes/farming/pineapple.tscn" id="13_qps58"]
 [ext_resource type="PackedScene" uid="uid://qny5b7wp3kgc" path="res://nodes/farming/rice.tscn" id="14_gqx53"]
+[ext_resource type="PackedScene" uid="uid://cftcjcbveg6ra" path="res://nodes/farming/strawberry.tscn" id="15_kmb8n"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1qh74"]
 texture = ExtResource("1_bxwh1")
@@ -509,8 +510,9 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="World" type="Node2D" node_paths=PackedStringArray("coin_sprite", "coin_label")]
+[node name="World" type="Node2D" node_paths=PackedStringArray("player", "coin_sprite", "coin_label")]
 script = ExtResource("1_1jppq")
+player = NodePath("Player")
 coin_sprite = NodePath("Coin/CoinSprite")
 coin_label = NodePath("Coin/CoinLabel")
 
@@ -669,7 +671,12 @@ position = Vector2(264, 152)
 [node name="Rice" parent="." instance=ExtResource("14_gqx53")]
 position = Vector2(232, 152)
 
+[node name="Strawberry" parent="." instance=ExtResource("15_kmb8n")]
+position = Vector2(200, 152)
+
 [connection signal="new_day" from="." to="." method="_on_new_day"]
 [connection signal="body_entered" from="House/PCMenu/PCArea" to="House/PCMenu" method="_on_pc_area_body_entered"]
 [connection signal="body_exited" from="House/PCMenu/PCArea" to="House/PCMenu" method="_on_pc_area_body_exited"]
+[connection signal="pressed" from="House/PCMenu/CropsButton" to="." method="_on_crops_button_pressed"]
+[connection signal="pressed" from="House/PCMenu/UraniumButton" to="." method="_on_uranium_button_pressed"]
 [connection signal="pressed" from="House/PCMenu/SleepButton" to="." method="_on_sleep_button_pressed"]
