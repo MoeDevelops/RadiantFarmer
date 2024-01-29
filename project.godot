@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="ScoreSpaceJam28"
+config/name="RadiantFarmer"
 run/main_scene="res://nodes/world.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"

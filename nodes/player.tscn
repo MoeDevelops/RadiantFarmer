@@ -1,7 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://qmx3lck4jybo"]
+[gd_scene load_steps=17 format=3 uid="uid://qmx3lck4jybo"]
 
 [ext_resource type="Script" path="res://nodes/player.gd" id="1_kfegg"]
 [ext_resource type="Texture2D" uid="uid://dlr0i2p07aprs" path="res://img/sprites/PixelFarm_Farmer-Sheet.png" id="1_uh556"]
+[ext_resource type="AudioStream" uid="uid://32jgpg7yrmv2" path="res://sound/pick_up.mp3" id="3_ihkm1"]
+[ext_resource type="AudioStream" uid="uid://btkhg5vf5aji0" path="res://sound/drop.mp3" id="4_n0po3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fmc1v"]
 atlas = ExtResource("1_uh556")
@@ -110,3 +112,11 @@ shape = SubResource("RectangleShape2D_p1osy")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(5, 10)
+
+[node name="PickUpAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ihkm1")
+bus = &"SFX"
+
+[node name="DropAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_n0po3")
+bus = &"SFX"

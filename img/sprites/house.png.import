@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfeams6etsqcx"
-path="res://.godot/imported/PixelFarm_Crops.png-05c2ef5ecca659dc30679e7c9ae98af5.ctex"
+uid="uid://ke4rx4fp4p2c"
+path="res://.godot/imported/house.png-30a1c51a3ae7310a0ba7d2ec64b62f69.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/sprites/PixelFarm_Crops.png"
-dest_files=["res://.godot/imported/PixelFarm_Crops.png-05c2ef5ecca659dc30679e7c9ae98af5.ctex"]
+source_file="res://img/sprites/house.png"
+dest_files=["res://.godot/imported/house.png-30a1c51a3ae7310a0ba7d2ec64b62f69.ctex"]
 
 [params]
 

@@ -1,11 +1,13 @@
 extends CharacterBody2D
 class_name Player
 
-@export var max_speed: float = 120
+@export var max_speed: float = 130
 @export var acceleration: float = 10
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var marker: Marker2D = $Marker2D
+@onready var pick_up_audio: AudioStreamPlayer = $PickUpAudioStreamPlayer
+@onready var drop_audio: AudioStreamPlayer = $DropAudioStreamPlayer
 
 var item = null
 
@@ -16,6 +18,11 @@ func _process(_delta):
 		var local_item = item
 		print_debug(local_item)
 		interact.emit(local_item)
+		
+		if local_item == null and item != null:
+			pick_up_audio.play()
+		elif local_item != null and item == null:
+			drop_audio.play()
 
 func _physics_process(_delta):
 	var direction: Vector2 = Input.get_vector("left", "right", "up", "down")

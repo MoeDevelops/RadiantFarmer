@@ -1,35 +1,46 @@
 extends Node2D
 class_name World
 
-var money: int = 50
-var rent: int = 5
+var money: int = 100
+var rent: int = 10
 var days: int = 0
 var score: int = 0
 
 @export var player: Player = null
 @export var coin_sprite: AnimatedSprite2D = null
 @export var coin_label: Label = null
+@export var coin_sound: AudioStreamPlayer = null
+@export var rent_label: Label = null
 
 signal new_day
 signal lose
 
+func _ready():
+	coin_label.text = str(money)
+	rent_label.text = str(rent)
+
 func _on_sleep_button_pressed():
-	rent += days
 	money -= rent
+	rent *= 1.2
+	
+	rent_label.text = str(rent)
 	
 	if money < 0:
 		lose.emit(score)
 	else:
+		var light: DirectionalLight2D = $DirectionalLight2D
+		
 		new_day.emit()
 
 
 func _on_new_day():
 	days += 1
 	coin_label.text = str(money)
-	
+
 func update_label():
 	coin_label.text = str(money)
 	coin_sprite.play("default")
+	coin_sound.play()
 
 func _on_crops_button_pressed():
 	if player.item == null and money >= 10:

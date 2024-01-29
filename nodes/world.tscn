@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://ukpcy468bti7"]
+[gd_scene load_steps=37 format=3 uid="uid://ukpcy468bti7"]
 
 [ext_resource type="Script" path="res://nodes/world.gd" id="1_1jppq"]
 [ext_resource type="Texture2D" uid="uid://deof5io0ciioo" path="res://img/sprites/PixelFarm_Tileset.png" id="1_bxwh1"]
@@ -9,12 +9,15 @@
 [ext_resource type="Script" path="res://nodes/PCMenu.gd" id="6_aak0m"]
 [ext_resource type="Texture2D" uid="uid://etmisugrpqdv" path="res://img/sprites/MonedaD.png" id="7_l0lcl"]
 [ext_resource type="PackedScene" uid="uid://cvrbke37k2c03" path="res://nodes/farming/soil.tscn" id="8_g1s5q"]
+[ext_resource type="AudioStream" uid="uid://dbg412cggy8dh" path="res://sound/coin.mp3" id="9_ehrck"]
 [ext_resource type="PackedScene" uid="uid://b5rqc25n5ysfd" path="res://nodes/farming/uranium.tscn" id="9_ly2hf"]
 [ext_resource type="PackedScene" uid="uid://c7coun4ob5dha" path="res://nodes/farming/carrot.tscn" id="11_r2p00"]
 [ext_resource type="PackedScene" uid="uid://d2c52t2lwofsw" path="res://nodes/game_over.tscn" id="12_qhah6"]
 [ext_resource type="PackedScene" uid="uid://csny7cexmqbjj" path="res://nodes/farming/pineapple.tscn" id="13_qps58"]
 [ext_resource type="PackedScene" uid="uid://qny5b7wp3kgc" path="res://nodes/farming/rice.tscn" id="14_gqx53"]
 [ext_resource type="PackedScene" uid="uid://cftcjcbveg6ra" path="res://nodes/farming/strawberry.tscn" id="15_kmb8n"]
+[ext_resource type="AudioStream" uid="uid://bts77o2fajkd5" path="res://sound/apple_cider.mp3" id="16_b1u8p"]
+[ext_resource type="Texture2D" uid="uid://ke4rx4fp4p2c" path="res://img/sprites/house.png" id="18_3mdmt"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1qh74"]
 texture = ExtResource("1_bxwh1")
@@ -510,11 +513,16 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="World" type="Node2D" node_paths=PackedStringArray("player", "coin_sprite", "coin_label")]
+[sub_resource type="LabelSettings" id="LabelSettings_dklhs"]
+font_size = 8
+
+[node name="World" type="Node2D" node_paths=PackedStringArray("player", "coin_sprite", "coin_label", "coin_sound", "rent_label")]
 script = ExtResource("1_1jppq")
 player = NodePath("Player")
 coin_sprite = NodePath("Coin/CoinSprite")
 coin_label = NodePath("Coin/CoinLabel")
+coin_sound = NodePath("Coin/CoinSound")
+rent_label = NodePath("Coin/RentLabel")
 
 [node name="Player" parent="." instance=ExtResource("2_7ksaw")]
 z_index = 1
@@ -600,25 +608,31 @@ text = "Sleep"
 [node name="Coin" type="Node" parent="."]
 
 [node name="CoinLabel" type="Label" parent="Coin"]
-offset_left = 18.0
-offset_top = 5.0
-offset_right = 54.0
-offset_bottom = 16.0
-text = "50
-"
+offset_left = 24.0
+offset_top = 8.0
+offset_right = 60.0
+offset_bottom = 19.0
+text = "Money"
 label_settings = SubResource("LabelSettings_uj41p")
 
 [node name="CoinSprite" type="AnimatedSprite2D" parent="Coin"]
-position = Vector2(9.5, 9.5)
+position = Vector2(16, 16)
 sprite_frames = SubResource("SpriteFrames_e61fp")
 frame = 4
 frame_progress = 1.0
 
 [node name="RentLabel" type="Label" parent="Coin"]
-offset_left = 15.0
-offset_top = 20.0
-offset_right = 55.0
-offset_bottom = 43.0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 65.0
+offset_bottom = 35.0
+text = "Rent"
+label_settings = SubResource("LabelSettings_dklhs")
+
+[node name="CoinSound" type="AudioStreamPlayer" parent="Coin"]
+stream = ExtResource("9_ehrck")
+volume_db = -10.0
+bus = &"SFX"
 
 [node name="Soil" type="Node" parent="."]
 
@@ -673,6 +687,15 @@ position = Vector2(232, 152)
 
 [node name="Strawberry" parent="." instance=ExtResource("15_kmb8n")]
 position = Vector2(200, 152)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_b1u8p")
+autoplay = true
+bus = &"Music"
+
+[node name="House2" type="Sprite2D" parent="."]
+position = Vector2(16, 32)
+texture = ExtResource("18_3mdmt")
 
 [connection signal="new_day" from="." to="." method="_on_new_day"]
 [connection signal="body_entered" from="House/PCMenu/PCArea" to="House/PCMenu" method="_on_pc_area_body_entered"]
