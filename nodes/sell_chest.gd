@@ -1,7 +1,7 @@
 extends AnimatedSprite2D
 
 var player: Player = null
-@export var coinLabel: Label = null
+@export var world: World = null
 
 func _on_sell_chest_area_body_entered(body):
 	if body is Player:
@@ -17,5 +17,7 @@ func _on_sell_chest_area_body_exited(body):
 
 func interact(item):
 	if item != null and "value" in item and item.value is int:
-		coinLabel.add_coins(item.value)
+		world.money += item.value
+		world.score += item.value
+		world.update_label()
 		item.queue_free()

@@ -1,0 +1,144 @@
+[gd_scene load_steps=21 format=3 uid="uid://csny7cexmqbjj"]
+
+[ext_resource type="Script" path="res://nodes/farming/pineapple.gd" id="1_mio2g"]
+[ext_resource type="Texture2D" uid="uid://8xjh1pn2kxnq" path="res://img/sprites/crops.png" id="1_wbhcl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvk3b"]
+atlas = ExtResource("1_wbhcl")
+region = Rect2(0, 160, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4lwsu"]
+atlas = ExtResource("1_wbhcl")
+region = Rect2(16, 160, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3gqqo"]
+atlas = ExtResource("1_wbhcl")
+region = Rect2(32, 160, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_713ue"]
+atlas = ExtResource("1_wbhcl")
+region = Rect2(48, 160, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i4wk3"]
+atlas = ExtResource("1_wbhcl")
+region = Rect2(64, 160, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bccmr"]
+atlas = ExtResource("1_wbhcl")
+region = Rect2(80, 160, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4g1eo"]
+atlas = ExtResource("1_wbhcl")
+region = Rect2(96, 160, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b0m5l"]
+atlas = ExtResource("1_wbhcl")
+region = Rect2(112, 160, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bjv7f"]
+atlas = ExtResource("1_wbhcl")
+region = Rect2(0, 160, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kcsep"]
+atlas = ExtResource("1_wbhcl")
+region = Rect2(16, 176, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ykqh8"]
+atlas = ExtResource("1_wbhcl")
+region = Rect2(32, 176, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_noaak"]
+atlas = ExtResource("1_wbhcl")
+region = Rect2(48, 176, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yec4p"]
+atlas = ExtResource("1_wbhcl")
+region = Rect2(64, 176, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tawnw"]
+atlas = ExtResource("1_wbhcl")
+region = Rect2(80, 176, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ig4l"]
+atlas = ExtResource("1_wbhcl")
+region = Rect2(96, 176, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4e8ix"]
+atlas = ExtResource("1_wbhcl")
+region = Rect2(112, 176, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2skbw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rvk3b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4lwsu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3gqqo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_713ue")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i4wk3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bccmr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4g1eo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b0m5l")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bjv7f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kcsep")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ykqh8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_noaak")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yec4p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tawnw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ig4l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4e8ix")
+}],
+"loop": false,
+"name": &"victoria",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rn0ow"]
+size = Vector2(2, 2)
+
+[node name="Pineapple" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_2skbw")
+script = ExtResource("1_mio2g")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_rn0ow")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

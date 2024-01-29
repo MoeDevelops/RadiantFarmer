@@ -1,14 +1,14 @@
 extends AnimatedSprite2D
-class_name Carrot
+class_name Pineapple
 
 var plantable: bool = true
 var holdable: bool = true
 var harvestable: bool = false
-var states: int = 4
+var states: int = 6
 var mutateable: bool = true
 var crossbreedable = null
 
-var on_grow_value: int = 20
+var on_grow_value: int = 40
 var value: int = 5
 var player: Player = null
 var picked_up: bool = false
@@ -39,9 +39,9 @@ func harvest():
 
 func mutate():
 	var current_frame = frame
-	animation = "ancient"
+	animation = "victoria"
 	frame = current_frame
-	on_grow_value = 60
+	on_grow_value = 80
 
 func interact(item):
 	if holdable:

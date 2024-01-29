@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://ukpcy468bti7"]
+[gd_scene load_steps=32 format=3 uid="uid://ukpcy468bti7"]
 
 [ext_resource type="Script" path="res://nodes/world.gd" id="1_1jppq"]
 [ext_resource type="Texture2D" uid="uid://deof5io0ciioo" path="res://img/sprites/PixelFarm_Tileset.png" id="1_bxwh1"]
@@ -8,10 +8,12 @@
 [ext_resource type="Texture2D" uid="uid://b25emxl46vldx" path="res://img/sprites/neko-office-tileset.png" id="3_u1h43"]
 [ext_resource type="Script" path="res://nodes/PCMenu.gd" id="6_aak0m"]
 [ext_resource type="Texture2D" uid="uid://etmisugrpqdv" path="res://img/sprites/MonedaD.png" id="7_l0lcl"]
-[ext_resource type="Script" path="res://nodes/CoinLabel.gd" id="7_tidr7"]
 [ext_resource type="PackedScene" uid="uid://cvrbke37k2c03" path="res://nodes/farming/soil.tscn" id="8_g1s5q"]
 [ext_resource type="PackedScene" uid="uid://b5rqc25n5ysfd" path="res://nodes/farming/uranium.tscn" id="9_ly2hf"]
 [ext_resource type="PackedScene" uid="uid://c7coun4ob5dha" path="res://nodes/farming/carrot.tscn" id="11_r2p00"]
+[ext_resource type="PackedScene" uid="uid://d2c52t2lwofsw" path="res://nodes/game_over.tscn" id="12_qhah6"]
+[ext_resource type="PackedScene" uid="uid://csny7cexmqbjj" path="res://nodes/farming/pineapple.tscn" id="13_qps58"]
+[ext_resource type="PackedScene" uid="uid://qny5b7wp3kgc" path="res://nodes/farming/rice.tscn" id="14_gqx53"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1qh74"]
 texture = ExtResource("1_bxwh1")
@@ -461,6 +463,9 @@ fill_from = Vector2(0.5, 0.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0p2sw"]
 size = Vector2(32, 16)
 
+[sub_resource type="LabelSettings" id="LabelSettings_uj41p"]
+font_size = 8
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_ewfma"]
 atlas = ExtResource("7_l0lcl")
 region = Rect2(0, 0, 16, 16)
@@ -504,12 +509,14 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="World" type="Node2D"]
+[node name="World" type="Node2D" node_paths=PackedStringArray("coin_sprite", "coin_label")]
 script = ExtResource("1_1jppq")
+coin_sprite = NodePath("Coin/CoinSprite")
+coin_label = NodePath("Coin/CoinLabel")
 
 [node name="Player" parent="." instance=ExtResource("2_7ksaw")]
 z_index = 1
-position = Vector2(183, 74)
+position = Vector2(240, 64)
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_bbf2j")
@@ -529,9 +536,9 @@ layer_4/name = "Air Objects"
 layer_4/z_index = 10
 layer_4/tile_data = PackedInt32Array()
 
-[node name="SellChest" parent="." node_paths=PackedStringArray("coinLabel") instance=ExtResource("3_ian17")]
+[node name="SellChest" parent="." node_paths=PackedStringArray("world") instance=ExtResource("3_ian17")]
 position = Vector2(200, 24)
-coinLabel = NodePath("../Coin/CoinLabel")
+world = NodePath("..")
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
 energy = 0.0
@@ -590,22 +597,26 @@ text = "Sleep"
 
 [node name="Coin" type="Node" parent="."]
 
-[node name="CoinLabel" type="Label" parent="Coin" node_paths=PackedStringArray("sprite", "world")]
-offset_left = 15.0
-offset_top = -4.0
-offset_right = 55.0
-offset_bottom = 19.0
+[node name="CoinLabel" type="Label" parent="Coin"]
+offset_left = 18.0
+offset_top = 5.0
+offset_right = 54.0
+offset_bottom = 16.0
 text = "50
 "
-script = ExtResource("7_tidr7")
-sprite = NodePath("../CoinSprite")
-world = NodePath("../..")
+label_settings = SubResource("LabelSettings_uj41p")
 
 [node name="CoinSprite" type="AnimatedSprite2D" parent="Coin"]
-position = Vector2(8, 8)
+position = Vector2(9.5, 9.5)
 sprite_frames = SubResource("SpriteFrames_e61fp")
 frame = 4
 frame_progress = 1.0
+
+[node name="RentLabel" type="Label" parent="Coin"]
+offset_left = 15.0
+offset_top = 20.0
+offset_right = 55.0
+offset_bottom = 43.0
 
 [node name="Soil" type="Node" parent="."]
 
@@ -642,16 +653,23 @@ position = Vector2(136, 120)
 world = NodePath("../..")
 
 [node name="Uranium" parent="." instance=ExtResource("9_ly2hf")]
-position = Vector2(264, 136)
-frame_progress = 0.772826
-
-[node name="Uranium2" parent="." instance=ExtResource("9_ly2hf")]
-position = Vector2(232, 136)
+position = Vector2(296, 120)
 frame_progress = 0.772826
 
 [node name="Carrot" parent="." instance=ExtResource("11_r2p00")]
-position = Vector2(248, 136)
+position = Vector2(296, 152)
 
+[node name="GameOver" parent="." node_paths=PackedStringArray("world") instance=ExtResource("12_qhah6")]
+visible = false
+world = NodePath("..")
+
+[node name="Pineapple" parent="." instance=ExtResource("13_qps58")]
+position = Vector2(264, 152)
+
+[node name="Rice" parent="." instance=ExtResource("14_gqx53")]
+position = Vector2(232, 152)
+
+[connection signal="new_day" from="." to="." method="_on_new_day"]
 [connection signal="body_entered" from="House/PCMenu/PCArea" to="House/PCMenu" method="_on_pc_area_body_entered"]
 [connection signal="body_exited" from="House/PCMenu/PCArea" to="House/PCMenu" method="_on_pc_area_body_exited"]
 [connection signal="pressed" from="House/PCMenu/SleepButton" to="." method="_on_sleep_button_pressed"]

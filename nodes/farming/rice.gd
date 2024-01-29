@@ -1,14 +1,14 @@
 extends AnimatedSprite2D
-class_name Carrot
+class_name Rice
 
 var plantable: bool = true
 var holdable: bool = true
 var harvestable: bool = false
-var states: int = 4
-var mutateable: bool = true
-var crossbreedable = null
+var states: int = 3
+var mutateable: bool = false
+var crossbreedable: String = "Carrot"
 
-var on_grow_value: int = 20
+var on_grow_value: int = 15
 var value: int = 5
 var player: Player = null
 var picked_up: bool = false
@@ -37,11 +37,12 @@ func harvest():
 	picked_up = true
 	value = on_grow_value
 
-func mutate():
-	var current_frame = frame
-	animation = "ancient"
-	frame = current_frame
-	on_grow_value = 60
+func crossbreed(plant: String):
+	if plant == crossbreedable:	
+		var current_frame = frame
+		animation = "golden"
+		frame = current_frame
+		on_grow_value = 25
 
 func interact(item):
 	if holdable:
