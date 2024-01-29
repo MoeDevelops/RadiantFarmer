@@ -8,7 +8,7 @@ var states: int = 6
 var mutateable: bool = true
 var crossbreedable = null
 
-var on_grow_value: int = 40
+var on_grow_value: int = 30
 var value: int = 5
 var player: Player = null
 var picked_up: bool = false
@@ -41,7 +41,7 @@ func mutate():
 	var current_frame = frame
 	animation = "victoria"
 	frame = current_frame
-	on_grow_value = 80
+	on_grow_value = 60
 
 func interact(item):
 	if holdable:

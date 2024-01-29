@@ -41,7 +41,7 @@ func mutate():
 	var current_frame = frame
 	animation = "ancient"
 	frame = current_frame
-	on_grow_value = 60
+	on_grow_value = 50
 
 func interact(item):
 	if holdable:
