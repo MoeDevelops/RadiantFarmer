@@ -69,4 +69,5 @@ offset_bottom = 166.0
 text = "500"
 horizontal_alignment = 1
 
+[connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]

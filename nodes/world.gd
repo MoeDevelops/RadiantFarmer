@@ -21,15 +21,13 @@ func _ready():
 
 func _on_sleep_button_pressed():
 	money -= rent
-	rent *= 1.2
+	rent = int(rent * 1.2)
 	
 	rent_label.text = str(rent)
 	
 	if money < 0:
 		lose.emit(score)
 	else:
-		var light: DirectionalLight2D = $DirectionalLight2D
-		
 		new_day.emit()
 
 
